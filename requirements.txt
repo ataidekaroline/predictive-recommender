@@ -27,3 +27,7 @@ vaderSentiment
 # Data Visualization (For generating graphs in the backend)
 matplotlib
 seaborn
+
+###################
+
+dotenv # For environment variable management
