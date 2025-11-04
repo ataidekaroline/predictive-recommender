@@ -1,33 +1,27 @@
 # Backend and Web Framework
 Flask
-gunicorn # Production Server (for deployment)
+gunicorn              # Production WSGI Server for deployment
 
-# Data Science and Machine Learning
+# Data Science and Machine Learning Core Libraries
 pandas
 numpy
 scikit-learn
-joblib # For saving/loading models
+joblib                # For saving and loading ML models
 
-# Data Collection and HTTP Requests
-requests
+# Data Collection and API Handling
+requests              # General HTTP requests (for MAL API)
 
-# Social Data Collection (Examples)
-# Focus on Reddit
-praw
+# Social Data Collection and NLP
+praw                  # Python Reddit API Wrapper
 
 # Sentiment Analysis and NLP
-# Option 1: English (VADER - fast and efficient for social networks)
-nltk
-vaderSentiment
-# Option 2: Portuguese (Transformer-based or specific libraries)
-# For Portuguese, you may need more complex models, but NLTK is still the basis.
-# Consider the "LeIA" library for analysis in Portuguese if you need a ready-made solution.
-# leia-br
+# nltk                  # NLTK base library (No longer primary, but keep for now if needed later)
+# vaderSentiment        # VADER (Replaced by TextBlob due to HTTP 429 error)
+textblob              # Alternative: Simple API for sentiment analysis
 
-# Data Visualization (For generating graphs in the backend)
+# Utilities and Security
+python-dotenv         # To load configuration variables from the .env file
+
+# Data Visualization (For generating trend graphs in the backend)
 matplotlib
 seaborn
-
-###################
-
-dotenv # For environment variable management
