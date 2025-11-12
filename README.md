@@ -152,11 +152,15 @@ Server runs at `http://127.0.0.1:5000/`.
 
 A view of the dynamic dashboard showing the Hype Score ranking and key metrics.
 
-![Hype Dashboard Final View](./assets/hype_dashboard.png)
+<p align="center">
+  <img src="assets/hype_dashboard.jpg" alt="dashboard" width="600px">
+</p>
 
 Hybrid scores for a specific user.
 
-![Recommendations Table View](./assets/recommendations_table.png)
+<p align="center">
+  <img src="assets/recommendations_table.jpg" alt="table" width="600px">
+</p>
 
 ## License
 
