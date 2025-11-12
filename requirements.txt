@@ -1,12 +1,10 @@
-
-
 # Backend and Web Framework
 Flask
 gunicorn              # Production WSGI Server for deployment
 
 # Data Science and Machine Learning Core Libraries
 pandas
-numpy
+numpy<2               # FIX: Forces an older version of NumPy (e.g., 1.26.x) for scikit-surprise compatibility
 scikit-learn
 joblib                # For saving and loading ML models
 
@@ -15,10 +13,6 @@ requests              # General HTTP requests (for MAL API)
 
 # Social Data Collection and NLP
 praw                  # Python Reddit API Wrapper
-
-# Sentiment Analysis and NLP
-# nltk                  # NLTK base library (No longer primary, but keep for now if needed later)
-# vaderSentiment        # VADER (Replaced by TextBlob due to HTTP 429 error)
 textblob              # Alternative: Simple API for sentiment analysis
 
 # Utilities and Security
@@ -28,5 +22,4 @@ python-dotenv         # To load configuration variables from the .env file
 matplotlib
 seaborn
 
-
-scikit-surprise          # For building and analyzing recommender systems
+scikit-surprise       # For building and analyzing recommender systems
