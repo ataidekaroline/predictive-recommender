@@ -165,13 +165,6 @@ This project is licensed under the MIT License.
 
 ***
 
-## References
-
-An excellent introduction to building dashboards with Flask and Chart.js:  
-[Building a chart with Flask and Chart.js](https://www.youtube.com/watch?v=Tm5GrpKkshc)
-
-***
-
 <!-- FOOTER: Author & LinkedIn -->
 
 <p align="center">
