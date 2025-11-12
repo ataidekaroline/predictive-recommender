@@ -1,9 +1,5 @@
 
 
-# Predictive Anime Recommender with Hype Detection: HypeBlend
-
-A modern hybrid recommendation system that blends Collaborative Filtering with a real-time Social Hype Detector to recommend relevant and trending anime.
-
 ## 🛠️ Technology Stack
 
 Os ícones abaixo representam todas as bibliotecas e ferramentas utilizadas neste projeto:
@@ -35,6 +31,15 @@ Os ícones abaixo representam todas as bibliotecas e ferramentas utilizadas nest
 | TextBlob |  | Fast sentiment analysis (polarity) for social comments. |
 | requests |  | HTTP communication for Jikan API. |
 | python-dotenv |  | Loads secrets from `.env` securely. |
+
+-----
+
+*(O restante do seu README.md segue normalmente a partir daqui.)*
+
+### Próxima Ação
+
+1.  Substitua a seção de tecnologia no seu `README.md` pelo código acima.
+2.  Faça o *commit* e *push* para o GitHub. Os ícones agora devem ser renderizados corretamente no formato de lista de badges.
 
 -----
 
