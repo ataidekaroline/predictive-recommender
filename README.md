@@ -1,132 +1,125 @@
 
+# Predictive Anime Recommender with Hype Detection: HypeBlend
 
-## 🛠️ Technology Stack
+<p align="center">
+  <!-- Technology Badges -->
+  <img src="https://img.shields.io/badge/Python-3.9%2B-blue.svg?logo=python" />
+  <img src="https://img.shields.io/badge/Flask-lightgrey.svg?logo=flask" />
+  <img src="https://img.shields.io/badge/Pandas-150458.svg?logo=pandas" />
+  <img src="https://img.shields.io/badge/Numpy-013243.svg?logo=numpy" />
+  <img src="https://img.shields.io/badge/scikit--learn-F7931E.svg?logo=scikit-learn" />
+  <img src="https://img.shields.io/badge/Surprise-FFD43B.svg?logo=python" />
+  <img src="https://img.shields.io/badge/requests-0052CC.svg?logo=python" />
+  <img src="https://img.shields.io/badge/PRAW-darkred.svg?logo=reddit" />
+  <img src="https://img.shields.io/badge/TextBlob-blueviolet.svg?logo=python" />
+  <img src="https://img.shields.io/badge/joblib-blue.svg?logo=python" />
+  <img src="https://img.shields.io/badge/python--dotenv-3949AB.svg?logo=python" />
+  <img src="https://img.shields.io/badge/Chart.js-FF6384.svg?logo=chartdotjs" />
+  <img src="https://img.shields.io/badge/Matplotlib-11557C.svg?logo=matplotlib" />
+  <img src="https://img.shields.io/badge/Seaborn-0F4C81.svg?logo=python" />
+</p>
 
-Os ícones abaixo representam todas as bibliotecas e ferramentas utilizadas neste projeto:
-
-### Core Tools and Infrastructure
-
-| Tool | Icon |
-| :--- | :--- |
-| Python (3.9+) |  |
-| Flask |  |
-| Gunicorn (Deployment) |  |
-| Chart.js (Frontend Viz) |  |
-
-### Data Science and Machine Learning Libraries
-
-| Library | Icon | Purpose |
-| :--- | :--- | :--- |
-| Pandas |  | Data manipulation and aggregation. |
-| NumPy (\<2.0) |  | Fundamental numerical operations. |
-| **Surprise** |  | **Specialized library for Collaborative Filtering (SVD).** |
-| scikit-learn |  | Overall ML structure and model metrics. |
-| joblib |  | Efficient serialization of ML assets. |
-
-### Data Collection and NLP
-
-| Tool/API | Icon | Purpose |
-| :--- | :--- | :--- |
-| PRAW (Reddit API) |  | Collects social data for Hype Detection. |
-| TextBlob |  | Fast sentiment analysis (polarity) for social comments. |
-| requests |  | HTTP communication for Jikan API. |
-| python-dotenv |  | Loads secrets from `.env` securely. |
-
------
-
-*(O restante do seu README.md segue normalmente a partir daqui.)*
-
-### Próxima Ação
-
-1.  Substitua a seção de tecnologia no seu `README.md` pelo código acima.
-2.  Faça o *commit* e *push* para o GitHub. Os ícones agora devem ser renderizados corretamente no formato de lista de badges.
-
------
+***
 
 ## Table of Contents
 
-1.  [About the Project](https://www.google.com/search?q=%231-about-the-project)
-2.  [Features](https://www.google.com/search?q=%232-features)
-3.  [Project Structure](https://www.google.com/search?q=%233-project-structure)
-4.  [Technologies Used](https://www.google.com/search?q=%234-technologies-used)
-5.  [Setup and Installation](https://www.google.com/search?q=%235-setup-and-installation)
-6.  [Usage](https://www.google.com/search?q=%236-usage)
-7.  [Output Screenshots](https://www.google.com/search?q=%237-output-screenshots)
-8.  [License](https://www.google.com/search?q=%238-license)
+1. [About the Project](#about-the-project)
+2. [Features](#features)
+3. [Project Structure](#project-structure)
+4. [Technologies Used](#technologies-used)
+5. [Setup and Installation](#setup-and-installation)
+6. [Usage](#usage)
+7. [Output Screenshots](#output-screenshots)
+8. [License](#license)
 
------
+***
 
-## 1\. About the Project
+## About the Project
 
 This project implements a unique **Hybrid Recommendation Engine** designed to solve the "cold start" and "discovery" problems in media recommendation. The system provides:
 
-1.  **Personalization:** Based on user history (Collaborative Filtering).
-2.  **Trend-Awareness:** Boosted by the current community sentiment and discussion volume ("Hype Score").
+- **Personalization:** Based on user history (Collaborative Filtering).
+- **Trend-Awareness:** Boosted by real-time community sentiment and discussion volume ("Hype Score").
 
-The data pipeline runs on Python, the model is served by a lightweight Flask API, and the results are presented in a high-contrast, dark-mode dashboard styled to be visually impactful and easily understood.
+The data pipeline runs on Python, the model is served by a lightweight Flask API, and the results are presented in a high-contrast, dark-mode dashboard styled for impact and ease of use.
 
-## 2\. Features
+## Features
 
-  * **Hybrid Engine:** Uses **SVD (Surprise)** for collaborative filtering, dynamically adjusted by the real-time Hype Score.
-  * **Hype Detector:** Collects raw commentary data from the **Reddit API (PRAW)** and uses **TextBlob** for sentiment analysis to quantify current trends.
-  * **Interactive Dashboard:** A visually attractive frontend using **Chart.js** to display key metrics (Total Items, Top Genres) and the Hype Ranking.
-  * **Secure Configuration:** Uses **python-dotenv** and `.gitignore` to secure API keys and suppress sensitive data.
+- **Hybrid Engine:** Uses **SVD (Surprise)** for collaborative filtering, dynamically adjusted by the real-time Hype Score.
+- **Hype Detector:** Collects commentary from **Reddit API (PRAW)** and uses **TextBlob** sentiment analysis to quantify current trends.
+- **Interactive Dashboard:** Attractive frontend using **Chart.js** for displaying key metrics and Hype Ranking.
+- **Secure Configuration:** Utilizes **python-dotenv** and `.gitignore` to secure API keys and suppress sensitive data.
 
-## 3\. Project Structure
+## Project Structure
 
-The project follows a standard Flask/ML structure, separating data, models, and application logic (`src`).
+Standard Flask/ML directory separation for data, models, and logic.
 
 ```
 .
-├── data/                      # Stores raw/processed data (e.g., ratings.csv)
-├── models/                    # Stores trained machine learning models
-├── src/                       # Source code for pipeline scripts
+├── data/
+├── models/
+├── src/
 │   ├── api_collector.py
 │   ├── data_processing.py
 │   ├── hype_detector.py
 │   └── recommender_model.py
-├── templates/                 # Frontend HTML templates
+├── templates/
 │   ├── index.html
-│   └── trends.html (Dark Dashboard)
-├── venv/                      # (Ignored)
-├── .env                       # (Ignored)
-├── app.py                     # Main Flask Application
+│   └── trends.html
+├── venv/           # (ignored)
+├── .env            # (ignored)
+├── app.py
 └── requirements.txt
 ```
 
-## 4\. Technologies Used
+## Technologies Used
 
-*(Note: The detailed table from the previous response has been moved to the top and simplified here to avoid repetition.)*
+| Category         | Library              | Purpose                                                    |
+|:-----------------|:---------------------|------------------------------------------------------------|
+| **Backend/Web**  | Python (3.9+)        | Core programming language                                  |
+|                  | Flask                | Lightweight framework for API and web pages                |
+| **ML/Data Core** | Pandas               | Efficient data manipulation                                |
+|                  | NumPy (<2.0)         | Fundamental numerical operations                           |
+|                  | scikit-learn         | Standard ML structure/metrics                              |
+|                  | Surprise             | Collaborative Filtering (SVD)                              |
+| **Data/NLP**     | requests             | HTTP requests for Jikan API                                |
+|                  | PRAW                 | Python Reddit API Wrapper                                  |
+|                  | TextBlob             | Sentiment analysis for social comments                     |
+| **Utilities**    | joblib               | Efficient serialization for ML assets                      |
+|                  | python-dotenv        | Secure secret management                                   |
+| **Frontend/Viz** | Matplotlib/Seaborn   | Data analysis/debugging                                    |
+|                  | Chart.js             | Dynamic charting dashboard                                 |
 
 ### APIs Used
 
-  * **Jikan API (v4)**: Fetches official anime metadata (Scores, Genres, Titles).
-  * **Reddit API**: Accessed via PRAW for real-time community sentiment and volume.
+- **Jikan API (v4)**: Fetches official anime metadata (scores, genres, titles).
+- **Reddit API**: Accessed via PRAW for real-time community sentiment and volume.
 
-## 5\. Setup and Installation
+## Setup and Installation
 
 ### Prerequisites
 
-  * Python 3.9+
-  * Reddit API Credentials (for `.env`)
+- Python 3.9+
+- Reddit API Credentials (for `.env`)
 
 ### Installation Steps
 
-1.  **Clone the Repo:**
-    ```bash
-    git clone YOUR_REPO_URL
-    cd predictive-recommender
-    ```
-2.  **Create and Activate Environment:**
-    ```bash
-    python -m venv venv
-    .\venv\Scripts\activate  # Windows
-    ```
-3.  **Install Dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-4.  **Configure Secrets:** Create a `.env` file in the root directory with your API keys.
+1. **Clone the Repo:**
+   ```bash
+   git clone YOUR_REPO_URL
+   cd predictive-recommender
+   ```
+2. **Create and Activate Environment:**
+   ```bash
+   python -m venv venv
+   .\venv\Scripts\activate  # Windows
+   # source venv/bin/activate  # Linux/macOS
+   ```
+3. **Install Dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Configure Secrets:** Create a `.env` file in the project root with your API keys.
 
 ### Run Data Pipeline
 
@@ -139,7 +132,7 @@ python src/hype_detector.py
 python src/recommender_model.py
 ```
 
-## 6\. Usage
+## Usage
 
 ### Starting the Flask Application
 
@@ -147,26 +140,45 @@ python src/recommender_model.py
 python app.py
 ```
 
-The application will run on `http://127.0.0.1:5000/`.
+### Accessing the Frontend
 
-  * **Recommendations:** `http://127.0.0.1:5000/`
-  * **Hype Trends Dashboard:** `http://127.0.0.1:5000/trends`
+Server runs at `http://127.0.0.1:5000/`.
 
-## 7\. Output Screenshots
+- **Recommendations:** `http://127.0.0.1:5000/`
+- **Hype Trends Dashboard:** `http://127.0.0.1:5000/trends`
 
-(Paste your two finalized images here—one for the recommendation table, one for the dark dashboard.)
+## Output Screenshots
 
------
+### Hype Trends Dashboard
 
-## 8\. License
+A view of the dynamic dashboard showing the Hype Score ranking and key metrics.
+
+![Hype Dashboard Final View](./assets/hype_dashboard.png)
+
+Hybrid scores for a specific user.
+
+![Recommendations Table View](./assets/recommendations_table.png)
+
+## License
 
 This project is licensed under the MIT License.
 
-<br>
+***
 
-\<div align="center"\>
-\<h3\>Built by Luana K. Ribeiro\</h3\>
-\<a href="[https://www.linkedin.com/in/ataidekaroline/](https://www.linkedin.com/in/ataidekaroline/)" target="\_blank"\>
-\<img src="[https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge\&logo=linkedin\&logoColor=white](https://www.google.com/search?q=https://img.shields.io/badge/LinkedIn-0077B5%3Fstyle%3Dfor-the-badge%26logo%3Dlinkedin%26logoColor%3Dwhite)" alt="LinkedIn Profile"\>
-\</a\>
-\</div\>
+## References
+
+An excellent introduction to building dashboards with Flask and Chart.js:  
+[Building a chart with Flask and Chart.js](https://www.youtube.com/watch?v=Tm5GrpKkshc)
+
+***
+
+<!-- FOOTER: Author & LinkedIn -->
+
+<p align="center">
+  <b>Luana K. Ribeiro</b><br>
+  <a href="https://www.linkedin.com/in/ataidekaroline/" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin" alt="LinkedIn Profile" />
+  </a>
+</p>
+
+
