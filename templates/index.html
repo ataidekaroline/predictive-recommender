@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Anime Recommender</title>
+    <style>
+        /* Base Dark Theme and Table Styling */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #121226; 
+            color: #E0E0E0; 
+            margin: 0; 
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 { color: #FFCD56; } /* Yellow accent for headers */
+        .nav a { margin-right: 20px; text-decoration: none; color: #4BC0C0; font-weight: 600; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+        th, td { 
+            border: 1px solid #3A3B66; /* Darker border */
+            padding: 12px; 
+            text-align: left; 
+        }
+        th { 
+            background-color: #2D2E55; 
+            color: #FFCD56; 
+            font-weight: 700;
+        }
+        tr:nth-child(even) { background-color: #1F2039; } /* Alternating row colors */
+        
+        /* Score Highlighting */
+        .score-hybrid { color: #4BC0C0; font-weight: bold; } /* Teal for final score */
+        .hype-high { color: #FFCD56; font-weight: bold; } /* Yellow for high hype */
+        .hype-low { color: #FF6384; } /* Pink for low hype */
+        /* Removed .info-box styling */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">&#x25B6; Personalized Recommendations</a>
+            <a href="/trends">Hype Trends Dashboard</a>
+        </div>
+
+        <h1>Personalized Anime Recommendations</h1>
+        <h2>User ID: {{ user_id }}</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Genres</th>
+                    <th>MAL Score</th>
+                    <th>Current Hype Score</th>
+                    <th>Hybrid Recommendation Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rec in recommendations %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ rec.title }}</td>
+                    <td><small>{{ rec.genres }}</small></td>
+                    <td>{{ rec.score | default("N/A") | round(2) }}</td>
+                    
+                    <td class="{% if rec.current_hype_score > 0.3 %}hype-high{% elif rec.current_hype_score < -0.3 %}hype-low{% endif %}">
+                        {{ rec.current_hype_score | default(0) | round(4) }}
+                    </td>
+                    
+                    <td class="score-hybrid">{{ rec.final_hybrid_score | default(0) | round(4) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

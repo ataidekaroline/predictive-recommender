@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hype Detector Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        /* Base Dark Theme and Grid Setup */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #121226; /* Deep Blue/Purple */
+            color: #E0E0E0; 
+            margin: 0; 
+            padding: 20px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Two main columns */
+            grid-template-rows: auto 1fr; /* Header then content */
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: #1F2039; /* Slightly lighter card background */
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .header {
+            grid-column: 1 / span 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav a { 
+            margin-left: 20px; 
+            text-decoration: none; 
+            color: #4BC0C0; /* Teal/Aqua */
+            font-weight: 600;
+        }
+
+        /* Metric Cards Styling */
+        .metric-cards {
+            grid-column: 1 / span 2;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+        .metric-card {
+            background-color: #2D2E55; 
+            padding: 20px 10px;
+            border-radius: 8px;
+            border-bottom: 4px solid #FF6384; /* Pink border accent */
+        }
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #FFCD56; /* Yellow accent */
+            margin: 5px 0;
+        }
+        .metric-label {
+            color: #A0A0A0;
+            font-size: 0.9em;
+        }
+
+        /* Charts Styling */
+        .hype-chart-container {
+            height: 550px; /* Fixed height for primary chart */
+        }
+        .top-genres {
+            height: 300px; /* Fixed height for auxiliary data */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .genre-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #3A3B66;
+            font-size: 1.1em;
+        }
+        .genre-item:last-child {
+            border-bottom: none;
+        }
+        .genre-score {
+            font-weight: bold;
+            color: #4BC0C0;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-grid">
+        <div class="header">
+            <h1>HYPE DETECTOR 📡</h1>
+            <div class="nav">
+                <a href="/">&#x25C0; Personalized Recommendations</a>
+            </div>
+        </div>
+
+        <div class="metric-cards">
+            <div class="metric-card">
+                <div class="metric-value">{{ summary.total_anime }}</div>
+                <div class="metric-label">Total Anime in Index</div>
+            </div>
+            <div class="metric-card" style="border-bottom-color: #FFCD56;">
+                <div class="metric-value">{{ summary.total_scored_users }}</div>
+                <div class="metric-label">Total Community Engagement (Scored Users)</div>
+            </div>
+            <div class="metric-card" style="border-bottom-color: #4BC0C0;">
+                <div class="metric-value">{{ hype_scores|length }}</div>
+                <div class="metric-label">Items Analyzed for Hype</div>
+            </div>
+        </div>
+
+        <div class="card hype-chart-container">
+            <h2>Current Hype Ranking (Sentiment & Volume)</h2>
+            <canvas id="hypeChart"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>&#x2728; Top 3 Most Engaged Genres</h2>
+            <div class="top-genres">
+                {% for genre in summary.top_genres %}
+                <div class="genre-item">
+                    <span>{{ loop.index }}. {{ genre.genre }}</span>
+                    <span class="genre-score">{{ "{:,}".format(genre.scored_by | int) }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Receive data from Flask via Jinja2 (Using JSON.parse is the most robust fix)
+        // This ensures the JS interprets the Jinja output as a valid string and then parses it.
+        const chartTitles = JSON.parse('{{ titles | tojson | safe }}');
+        const rawHypeScores = JSON.parse('{{ hype_scores | tojson | safe }}');
+
+        // Convert raw hype score (which is -1 to 1) to a percentage scale for better visualization on the Y-axis
+        const hypePercentages = rawHypeScores.map(score => parseFloat(score) * 100); 
+
+        // 2. Chart.js Configuration
+        const ctx = document.getElementById('hypeChart').getContext('2d');
+        const hypeChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: chartTitles,
+                datasets: [{
+                    label: 'Hype Score (Polarity * 100)',
+                    data: hypePercentages,
+                    // Dynamic coloring based on score polarity
+                    backgroundColor: hypePercentages.map(score => score > 0 ? '#4BC0C0' : '#FF6384'),
+                    borderColor: hypePercentages.map(score => score > 0 ? '#4BC0C0' : '#FF6384'),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Horizontal bar chart
+                responsive: true,
+                maintainAspectRatio: false, 
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.parsed.x.toFixed(2) + '%';
+                                return label;
+                            }
+                        }
+                    },
+                    title: {
+                        display: false,
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Hype Score (Polarity * 100)'
+                        },
+                        // Ensure the axis covers negative polarity
+                        beginAtZero: false, 
+                        grid: { color: '#3A3B66' },
+                        ticks: { color: '#E0E0E0' }
+                    },
+                    y: {
+                        grid: { color: '#3A3B66' },
+                        ticks: { color: '#E0E0E0' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

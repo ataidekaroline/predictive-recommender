@@ -1,1 +1,24 @@
+# .gitignore file for the Predictive Recommender Project
+# -----------------------------------------------
+
+# 1. Environment Variables (CRITICAL)
+# Keeps API keys and sensitive secrets (MAL, Reddit) out of the repository.
 .env
+
+# 2. Virtual Environments (CRITICAL)
+# Large, platform-specific folders that should not be version controlled.
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# 3. Machine Learning Assets and Generated Data
+# Models are often large and can be rebuilt from scripts.
+/models/*.pkl           # Trained model files
+/models/*.model         # Surprise library model files
+/data/*.csv             # Generated data (raw_anime_data.csv, processed_anime_data.csv, ratings, etc.)
+/data/*.db              # Any development database files (e.g., SQLite)
+
+# 4. IDE and System Files
+.vscode/                # VS Code workspace settings (user-specific)
+.ipynb_checkpoints      # Jupyter/VS Code notebook checkpoints
