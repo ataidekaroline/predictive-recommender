@@ -1,5 +1,4 @@
-
-# Predictive Anime Recommender with Hype Detection: HypeBlend
+<h1 align="center">Predictive Anime Recommender with Hype Detection: HypeBlend</h1>
 
 <p align="center">
   <!-- Technology Badges -->
