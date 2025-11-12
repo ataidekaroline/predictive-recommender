@@ -1,23 +1,30 @@
-
 # Predictive Anime Recommender with Hype Detection: HypeBlend
 
 A modern hybrid recommendation system that blends Collaborative Filtering with a real-time Social Hype Detector to recommend relevant and trending anime.
 
-| Status | Tech Stack | License |
-| :--- | :--- | :--- |
-|  |     | [](https://www.google.com/search?q=LICENSE) |
+-----
+
+## 🛠️ Technology Stack
+
+| Core Language | Backend | ML/Recommenders | Data/NLP | Visualization | Utilities |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+|  |  |  |  |  |  |
+| | |  |  |  |  |
+| | |  |  |  | |
+| | |  | | | |
 
 -----
 
 ## Table of Contents
 
-1.  [About the Project](https://www.google.com/search?q=%23about-the-project)
-2.  [Features](https://www.google.com/search?q=%23features)
-3.  [Project Structure](https://www.google.com/search?q=%23project-structure)
-4.  [Technologies Used](https://www.google.com/search?q=%23technologies-used)
-5.  [Setup and Installation](https://www.google.com/search?q=%23setup-and-installation)
-6.  [Usage](https://www.google.com/search?q=%23usage)
-7.  [Output Screenshots](https://www.google.com/search?q=%23output-screenshots)
+1.  [About the Project](https://www.google.com/search?q=%231-about-the-project)
+2.  [Features](https://www.google.com/search?q=%232-features)
+3.  [Project Structure](https://www.google.com/search?q=%233-project-structure)
+4.  [Technologies Used](https://www.google.com/search?q=%234-technologies-used)
+5.  [Setup and Installation](https://www.google.com/search?q=%235-setup-and-installation)
+6.  [Usage](https://www.google.com/search?q=%236-usage)
+7.  [Output Screenshots](https://www.google.com/search?q=%237-output-screenshots)
+8.  [License](https://www.google.com/search?q=%238-license)
 
 -----
 
@@ -34,7 +41,7 @@ The data pipeline runs on Python, the model is served by a lightweight Flask API
 
   * **Hybrid Engine:** Uses **SVD (Surprise)** for collaborative filtering, dynamically adjusted by the real-time Hype Score.
   * **Hype Detector:** Collects raw commentary data from the **Reddit API (PRAW)** and uses **TextBlob** for sentiment analysis to quantify current trends.
-  * **Interactive Dashboard:** A visually attractive frontend using **Chart.js** to display key metrics and the Hype Ranking.
+  * **Interactive Dashboard:** A visually attractive frontend using **Chart.js** to display key metrics (Total Items, Top Genres) and the Hype Ranking.
   * **Secure Configuration:** Uses **python-dotenv** and `.gitignore` to secure API keys and suppress sensitive data.
 
 ## 3\. Project Structure
@@ -43,8 +50,8 @@ The project follows a standard Flask/ML structure, separating data, models, and 
 
 ```
 .
-├── data/
-├── models/
+├── data/                      # Stores raw/processed data (e.g., ratings.csv)
+├── models/                    # Stores trained machine learning models
 ├── src/                       # Source code for pipeline scripts
 │   ├── api_collector.py
 │   ├── data_processing.py
@@ -61,21 +68,18 @@ The project follows a standard Flask/ML structure, separating data, models, and 
 
 ## 4\. Technologies Used
 
-| Category | Library | Logo | Purpose |
-| :--- | :--- | :--- | :--- |
-| **Backend/Web** | **Python (3.9+)** | \![Python Logo] | Core programming language. |
-| | **Flask** | \![Flask Logo] | Lightweight framework for serving the API and web pages. |
-| **ML/Data Core** | **Pandas** | \![Pandas Logo] | Efficient data manipulation and aggregation. |
-| | **NumPy (\<2.0)** | \![NumPy Logo] | Fundamental library for numerical operations. |
-| | **scikit-learn** | \![Scikit-learn Logo] | Standard ML library (used for overall structure/metrics). |
-| | **Surprise** | \![Surprise Logo] | Specialized library for Collaborative Filtering (SVD). |
-| **Data/NLP** | **requests** |  | HTTP requests for the Jikan API. |
-| | **PRAW** |  | Python Reddit API Wrapper for social data collection. |
-| | **TextBlob** |  | Fast sentiment analysis (polarity) for social comments. |
-| **Utilities** | **joblib** |  | Efficient serialization (saving/loading) of ML assets. |
-| | **python-dotenv** |  | Loads secrets from the `.env` file securely. |
-| **Frontend/Viz** | **Matplotlib/Seaborn** |  | Used internally for potential data analysis and debugging. |
-| | **Chart.js** |  | Dynamic, responsive charting on the frontend dashboard. |
+| Category | Library | Purpose |
+| :--- | :--- | :--- |
+| **Backend/Web** | **Flask** | Lightweight framework for serving the API and web pages. |
+| **ML/Data Core** | **Pandas** | Efficient data manipulation and aggregation. |
+| | **NumPy (\<2.0)** | Fundamental library for numerical operations. |
+| | **Surprise** | Specialized library for Collaborative Filtering (SVD). |
+| **Data/NLP** | **requests** | HTTP requests for the Jikan API. |
+| | **PRAW** | Python Reddit API Wrapper for social data collection. |
+| | **TextBlob** | Fast sentiment analysis (polarity) for social comments. |
+| **Utilities** | **joblib** | Efficient serialization (saving/loading) of ML assets. |
+| | **python-dotenv** | Loads secrets from the `.env` file securely. |
+| **Frontend/Viz** | **Chart.js** | Dynamic, responsive charting on the frontend dashboard. |
 
 ### APIs Used
 
@@ -100,13 +104,12 @@ The project follows a standard Flask/ML structure, separating data, models, and 
     ```bash
     python -m venv venv
     .\venv\Scripts\activate  # Windows
-    # source venv/bin/activate  # Linux/macOS
     ```
 3.  **Install Dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
-4.  **Configure Secrets:** Create a `.env` file in the project root with your API keys.
+4.  **Configure Secrets:** Create a `.env` file in the root directory with your API keys.
 
 ### Run Data Pipeline
 
@@ -127,9 +130,7 @@ python src/recommender_model.py
 python app.py
 ```
 
-### Accessing the Frontend
-
-The server runs on `http://127.0.0.1:5000/`.
+The application will run on `http://127.0.0.1:5000/`.
 
   * **Recommendations:** `http://127.0.0.1:5000/`
   * **Hype Trends Dashboard:** `http://127.0.0.1:5000/trends`
@@ -140,18 +141,15 @@ The server runs on `http://127.0.0.1:5000/`.
 
 -----
 
-## 7. Output Screenshots
-
-### 7.1. Hype Trends Dashboard
-A view of the dynamic dashboard showing the Hype Score ranking and key metrics.
-![Hype Dashboard Final View](assets/hype_dashboard.png)
-
-### 7.2. Personalized Recommendations Table
-The final table showing Hybrid Scores for a specific user.
-![Recommendations Table View](assets/recommendations_table.png)
-
 ## 8\. License
 
 This project is licensed under the MIT License.
 
-This video provides an excellent introduction to building dashboards with Flask and Chart.js, which is highly relevant to the project's final steps. [Building a chart with Flask and Chart.js](https://www.youtube.com/watch?v=Tm5GrpKkshc)
+<br>
+
+\<div align="center"\>
+\<h3\>Built by Luana K. Ribeiro\</h3\>
+\<a href="[https://www.linkedin.com/in/ataidekaroline/](https://www.linkedin.com/in/ataidekaroline/)" target="\_blank"\>
+\<img src="[https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge\&logo=linkedin\&logoColor=white](https://www.google.com/search?q=https://img.shields.io/badge/LinkedIn-0077B5%3Fstyle%3Dfor-the-badge%26logo%3Dlinkedin%26logoColor%3Dwhite)" alt="LinkedIn Profile"\>
+\</a\>
+\</div\>
