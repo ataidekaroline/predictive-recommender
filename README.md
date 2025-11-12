@@ -1,17 +1,40 @@
+
+
 # Predictive Anime Recommender with Hype Detection: HypeBlend
 
 A modern hybrid recommendation system that blends Collaborative Filtering with a real-time Social Hype Detector to recommend relevant and trending anime.
 
------
-
 ## 🛠️ Technology Stack
 
-| Core Language | Backend | ML/Recommenders | Data/NLP | Visualization | Utilities |
-| :---: | :---: | :---: | :---: | :---: | :---: |
-|  |  |  |  |  |  |
-| | |  |  |  |  |
-| | |  |  |  | |
-| | |  | | | |
+Os ícones abaixo representam todas as bibliotecas e ferramentas utilizadas neste projeto:
+
+### Core Tools and Infrastructure
+
+| Tool | Icon |
+| :--- | :--- |
+| Python (3.9+) |  |
+| Flask |  |
+| Gunicorn (Deployment) |  |
+| Chart.js (Frontend Viz) |  |
+
+### Data Science and Machine Learning Libraries
+
+| Library | Icon | Purpose |
+| :--- | :--- | :--- |
+| Pandas |  | Data manipulation and aggregation. |
+| NumPy (\<2.0) |  | Fundamental numerical operations. |
+| **Surprise** |  | **Specialized library for Collaborative Filtering (SVD).** |
+| scikit-learn |  | Overall ML structure and model metrics. |
+| joblib |  | Efficient serialization of ML assets. |
+
+### Data Collection and NLP
+
+| Tool/API | Icon | Purpose |
+| :--- | :--- | :--- |
+| PRAW (Reddit API) |  | Collects social data for Hype Detection. |
+| TextBlob |  | Fast sentiment analysis (polarity) for social comments. |
+| requests |  | HTTP communication for Jikan API. |
+| python-dotenv |  | Loads secrets from `.env` securely. |
 
 -----
 
@@ -68,18 +91,7 @@ The project follows a standard Flask/ML structure, separating data, models, and 
 
 ## 4\. Technologies Used
 
-| Category | Library | Purpose |
-| :--- | :--- | :--- |
-| **Backend/Web** | **Flask** | Lightweight framework for serving the API and web pages. |
-| **ML/Data Core** | **Pandas** | Efficient data manipulation and aggregation. |
-| | **NumPy (\<2.0)** | Fundamental library for numerical operations. |
-| | **Surprise** | Specialized library for Collaborative Filtering (SVD). |
-| **Data/NLP** | **requests** | HTTP requests for the Jikan API. |
-| | **PRAW** | Python Reddit API Wrapper for social data collection. |
-| | **TextBlob** | Fast sentiment analysis (polarity) for social comments. |
-| **Utilities** | **joblib** | Efficient serialization (saving/loading) of ML assets. |
-| | **python-dotenv** | Loads secrets from the `.env` file securely. |
-| **Frontend/Viz** | **Chart.js** | Dynamic, responsive charting on the frontend dashboard. |
+*(Note: The detailed table from the previous response has been moved to the top and simplified here to avoid repetition.)*
 
 ### APIs Used
 
