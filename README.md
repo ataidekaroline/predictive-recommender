@@ -3,7 +3,7 @@
 <p align="center">
   <!-- Technology Badges -->
   <img src="https://img.shields.io/badge/Python-3.9%2B-blue.svg?logo=python" />
-  <img src="https://img.shields.io/badge/Flask-lightgrey.svg?logo=flask" />
+  <img src="https://img.shields.io/badge/Flask-lightgrey.svg?logo=flask" /> 
   <img src="https://img.shields.io/badge/Pandas-150458.svg?logo=pandas" />
   <img src="https://img.shields.io/badge/Numpy-013243.svg?logo=numpy" />
   <img src="https://img.shields.io/badge/scikit--learn-F7931E.svg?logo=scikit-learn" />
