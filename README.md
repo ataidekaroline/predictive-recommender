@@ -29,7 +29,8 @@
 5. [Setup and Installation](#setup-and-installation)
 6. [Usage](#usage)
 7. [Output Screenshots](#output-screenshots)
-8. [License](#license)
+8. [HypeBlend Project Deep Dive (Step-by-Step)](#step-by-step)
+9. [License](#license)
 
 ***
 
@@ -161,6 +162,67 @@ Hybrid scores for a specific user.
 <p align="center">
   <img src="assets/recommendations_table.jpg" alt="table" width="600px">
 </p>
+
+
+## HypeBlend Project Deep Dive (Step-by-Step)
+
+This guide provides a detailed technical explanation of the **HypeBlend** system, covering the data flow, hybrid scoring logic, and the interpretation of the key metrics displayed on your dashboard.
+
+## 1. Project Phases & Data Pipeline
+
+The project relies on a sequential pipeline to process raw social data and train the recommendation model.
+
+| Script | Phase | Key Action | Generated Output |
+| :--- | :--- | :--- | :--- |
+| **`api_collector.py`** | **Acquisition** | Fetches core anime metadata (ID, title, score) from the **MAL API**. | `raw_anime_data.csv` |
+| **`hype_detector.py`** | **Hype Scoring** | Collects comments from Reddit (**PRAW**), performs **TextBlob** sentiment analysis, and calculates the Hype Score. | `processed_anime_data.csv` |
+| **`data_processing.py`** | **User Simulation** | Creates synthetic user ratings (`user_id`, `mal_id`, `rating`) to simulate a community for ML training. | `synthetic_user_ratings.csv` |
+| **`recommender_model.py`** | **Training** | Trains the **SVD (Surprise)** Collaborative Filtering model on the synthetic ratings. | `collaborative_filter.model` |
+
+---
+
+## 2. Hybrid Scoring Logic (The Core Engine)
+
+The system's intelligence comes from blending the ML prediction with the social trend data. The final score used for ranking is calculated as follows:
+
+$$\text{Final Hybrid Score} = (\text{Predicted Rating}_{\text{SVD}}) + (\text{Scaled Hype Score} \times 0.3)$$
+
+This formula ensures that highly *relevant* items (high SVD prediction) get a **boost** in rank if they are currently *trending* (high Hype Score).
+
+---
+
+## 3. Understanding the Metrics
+
+### A. Personalized Recommendations Table (`/`)
+
+This table shows the recommended items for a specific user, sorted by the final rank.
+
+| Metric | Range/Scale | Interpretation |
+| :--- | :--- | :--- |
+| **MAL Score** | 1–10 | Official community average rating. |
+| **Current Hype Score** | **-1.0 to +1.0** | **The most dynamic metric.** Quantifies social media buzz. Positive scores (e.g., +0.5) indicate strong positive sentiment/high volume (Hype). |
+| **Hybrid Recommendation Score** | 1.0+ | The final predicted rank. The higher the score, the higher the probability the user will enjoy the item **right now**. |
+
+### B. Hype Trends Dashboard (`/trends`)
+
+The dashboard  displays aggregated community engagement and trends.
+
+#### Summary Metrics
+
+| Metric | Data Source | Meaning |
+| :--- | :--- | :--- |
+| **Total Anime in Index** | `raw_anime_data.csv` | Total number of unique titles the system tracks. |
+| **Total Community Engagement** | `scored_by` (Sum) | Represents the overall size of the community whose ratings are factored in. |
+| **Top 3 Most Engaged Genres** | `processed_anime_data.csv` | Categorizes popularity by genre, showing where the community's attention is focused. |
+
+#### Chart Interpretation
+
+The bar chart visualizes the **Current Hype Score** of the Top 20 items.
+
+* **Positive Bars (e.g., Teal/Aqua):** Indicate strong community consensus and high discussion volume (True Hype).
+* **Negative Bars (e.g., Pink/Coral):** Indicate that the high volume of discussion is driven by negative sentiment, often signaling controversy or backlash.
+
+
 
 ## License
 
